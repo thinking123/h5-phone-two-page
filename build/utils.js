@@ -22,6 +22,22 @@ function getEntries() {
     console.log('ertries' , entries)
     return entries
 }
+function getEntriesName() {
+    const pattern = `${CODE_PATH}/**/*.js`
+    const entries = []
+    glob.sync(pattern , {
+        ignore:[`${CODE_PATH}/share/*`]
+    }).forEach(f =>{
+        console.log('m ' , f)
+        const reg = /\/(\w+)\/\w+\.js$/
+        const key = f.match(reg)[1]
+        console.log('key' , key)
+
+        entries.push(key)
+    })
+
+    return entries
+}
 
 function resolve(path) {
     return path.resolve()
@@ -39,5 +55,6 @@ function getEnv(){
 module.exports = {
     getEntries,
     resolve,
-    isDev:getEnv()
+    isDev:getEnv(),
+    getEntriesName
 }

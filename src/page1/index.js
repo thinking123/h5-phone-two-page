@@ -1,19 +1,27 @@
-console.log('page1')
+import Vue from 'vue'
+import App from './App'
 
 
-function t() {
-    return Promise((res, rej) => {
-        setTimeout(() => {
-            res()
-        }, 2000)
-    })
-}
+new Vue({
+    render:h => h(App)
+}).$mount('#app')
 
-
-async function main() {
-    console.log('begin main')
-    await t()
-    console.log('stop main')
-}
-
-main()
+// console.log('page1')
+//
+//
+// function t() {
+//     return new Promise((res, rej) => {
+//         setTimeout(() => {
+//             res()
+//         }, 2000)
+//     })
+// }
+//
+//
+// async function main() {
+//     console.log('begin main')
+//     await t()
+//     console.log('stop main')
+// }
+//
+// main()

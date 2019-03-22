@@ -1,10 +1,12 @@
 <template>
-    
+    <div>
+        page2
+    </div>
 </template>
 
 <script>
     export default {
-        name: "App.vue"
+        name: "App"
     }
 </script>
 
