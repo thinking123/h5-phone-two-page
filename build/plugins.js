@@ -1,6 +1,6 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {getEntriesName, isDev , getEnv} = require("./utils")
+const {getEntries, isDev , getEnv} = require("./utils")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -10,11 +10,13 @@ const path = require('path')
 
 const plugins = []
 const env = getEnv()
-getEntriesName().forEach(name => {
+getEntries().forEach(entry => {
 
+    const name = entry.name
+    const html = entry.html
     console.log('getEntriesName', name)
     const config = {
-        template: path.resolve(__dirname, 'html-template.html'),
+        template: html,
         filename: `${name}.html`,
         title: name,
         chunks: [name]

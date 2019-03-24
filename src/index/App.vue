@@ -10,7 +10,10 @@
 
 <script>
     export default {
-        name: "App"
+        name: "App",
+        mounted() {
+            // alert('page')
+        }
     }
 </script>
 

@@ -8,7 +8,7 @@ new Vue({
     render:h => h(App)
 }).$mount('#app')
 
-// console.log('page1')
+// console.log('index')
 //
 //
 // function t() {

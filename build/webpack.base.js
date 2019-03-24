@@ -6,7 +6,7 @@ const {getEntries , isDev , resolve} = require("./utils")
 const path = require('path')
 const rules = require('./loaders')
 const plugins = require('./plugins')
-
+const devServer = require('./devServer')
 
 
 
@@ -21,14 +21,18 @@ rimraf.sync(dist, {} , err=>{
 
 
 
-config.entry = getEntries()
+config.entry = getEntries().map(m=>m.entry)
 
 config.output = {
     filename:'[name].js',
     path:dist
 }
 
-if(!isDev){
+if(isDev){
+    config.devtool =  'inline-source-map'
+    config.devServer = devServer
+
+}else{
     config.optimization = {
         runtimeChunk: {
             name: 'runtime'
