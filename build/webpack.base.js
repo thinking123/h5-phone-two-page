@@ -61,7 +61,7 @@ if(isDev){
                     name: 'vender',
                     priority:-1,
                     chunks: 'all',
-                    minSize:1
+                    minSize:10000
                 }
             }
         }
@@ -93,5 +93,5 @@ config.module = {
 config.plugins = plugins
 
 
-console.log('config' , config)
+// console.log('config' , config)
 module.exports = config
