@@ -95,7 +95,7 @@
         z-index: 2;
         top:17.84%;
         height: 49.18%;
-        width: 596rpx;
+        width: 298px;
         left:50%;
         transform: translateX(-50%);
 
@@ -105,7 +105,7 @@
         z-index: 2;
         top:69.72%;
         height: 7.35%;
-        width: 348rpx;
+        width: 174px;
         left:50%;
         transform: translateX(-50%);
         /*border: 1px solid yellow;*/

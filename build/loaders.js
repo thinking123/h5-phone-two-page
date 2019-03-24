@@ -32,7 +32,7 @@ const scssLoader = {
         {
             loader: 'px2rem-loader',
             options: {
-                remUnit: 75,
+                remUnit: 37.5,
                 remPrecision: 8
             }
         },

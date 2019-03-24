@@ -2,14 +2,16 @@
     <div class="layout">
         <slot/>
         <loading-bar/>
+        <more-arrow/>
     </div>
 </template>
 
 <script>
     import LoadingBar from "@/components/LoadingBar";
+    import MoreArrow from "@/components/MoreArrow";
     export default {
         name: "Layout",
-        components: {LoadingBar},
+        components: {MoreArrow, LoadingBar},
     }
 </script>
 

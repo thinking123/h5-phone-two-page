@@ -133,7 +133,7 @@
         position: relative;
     }
     .show-scroll > .content{
-        height: 667*2px;
+        height: 667px;
         width: 100%;
         position: relative;
     }
@@ -146,7 +146,7 @@
     .how-to-play {
         position: absolute;
         top: 2.4%;
-        left: 676px;
+        left: 338px;
         height: 14.09%;
         width: 64px;
         /*border: 1px solid yellow;*/
@@ -198,10 +198,10 @@
             opacity: 1;
         }
         90%{
-            bottom: 30*2px;
+            bottom: 30px;
         }
         100%{
-            bottom: 30*2px;
+            bottom: 30px;
             opacity: 0;
         }
     }
