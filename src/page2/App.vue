@@ -16,6 +16,7 @@
 <style scoped lang="scss">
 .page2{
     background-color: yellow;
+    font-size: 20px;
     p{
         font-family: Calibri;
     }

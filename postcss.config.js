@@ -3,7 +3,7 @@ module.exports = {
     plugins: {
         'postcss-import': {},
         'postcss-preset-env': {
-            autoprefixer:{}
+            autoprefixer: {}
         },
         'cssnano': {}
     }

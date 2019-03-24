@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store'
 const pro = process.env.NODE_ENV === 'production'
 axios.defaults.timeout = 20000;
-axios.defaults.baseURL = pro ?'http://47.105.252.142' : '/' ;
+axios.defaults.baseURL = pro ?'http://pepsimusic.ysmine.com/' : '/' ;
 
 let timer = []
 
@@ -24,6 +24,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         // clearTimeout(timer.splice(0, 1))
+
+
         store.commit('CHANGE_LOADING_BAR', false)
 
         return response.data

@@ -1,5 +1,5 @@
 const rimraf = require('rimraf')
-
+const px2rem = require('postcss-px2rem')
 
 const webpack = require('webpack')
 const {getEntries , isDev , resolve} = require("./utils")
@@ -30,6 +30,8 @@ config.output = {
     filename:'[name].js',
     path:dist
 }
+
+
 
 if(isDev){
     config.devtool =  'inline-source-map'
@@ -93,5 +95,5 @@ config.module = {
 config.plugins = plugins
 
 
-// console.log('config' , config)
+console.log('config' , config)
 module.exports = config

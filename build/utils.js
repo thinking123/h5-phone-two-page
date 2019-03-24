@@ -14,6 +14,9 @@ function getEntries() {
         // root:path.resolve()
         ignore:[`${CODE_PATH}/share/**/*`]
     }).forEach(m =>{
+        if(m.indexOf('index.js') == -1){
+            return
+        }
         console.log('m ' , m)
         const reg = /\/(\w+)\/\w+\.js$/
         const key = m.match(reg)[1]

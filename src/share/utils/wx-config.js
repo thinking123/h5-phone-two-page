@@ -1,3 +1,7 @@
+import store from '../store'
+import {getSignInfo} from "./http";
+import {showMsg} from "./common";
+
 export function wx_config(appId , timestamp , nonceStr , signature , jsApiList , imgUrl) {
     return new Promise((resolve, reject) => {
         wx.config({
@@ -15,9 +19,52 @@ export function wx_config(appId , timestamp , nonceStr , signature , jsApiList ,
         wx.error(reject)
     })
 }
-/*
-* H5标题：今天，我为邮储女性代言；内容简介：快来编写专属你的邮储女性“代言海报”
-* */
+
+export async function initShare(link , imgUrl) {
+    try {
+        // if(isNotSharePage){
+        //     return
+        // }
+        const title = '我的音乐人格'
+        const desc = '来测测你的音乐人格吧'
+
+        let appid,
+            noncestr,
+            signature,
+            timestamp
+
+        const res = await getSignInfo()
+        console.log('getSignInfo' , res)
+        // store.commit('setsignInfo' , res)
+        appid = res.appid
+        noncestr = res.noncestr
+        signature = res.signature
+        timestamp = res.timestamp
+        console.log('share data' , link , imgUrl)
+        const jsApiList = [
+            'updateAppMessageShareData',
+            'updateTimelineShareData',
+            //下面这两个api，虽然已经废弃，但是android必须调用，否则不能分享
+            'onMenuShareAppMessage',
+            'onMenuShareTimeline'
+        ]
+        await wx_config(appid, timestamp, noncestr, signature, jsApiList)
+        // store.commit('setisConfigedShare' , true)
+
+        console.log('分享数据' , title, desc, link, imgUrl)
+        console.log('分享结束1')
+        await wx_appMessageShare(title, desc, link, imgUrl)
+        console.log('分享结束2')
+        await wx_timelineShare(title, link, imgUrl)
+        // console.log('分享结束3')
+        onMenuShareTimeline(title, link, imgUrl)
+        // console.log('分享结束4')
+        onMenuShareAppMessage(title, desc, link, imgUrl)
+
+    }catch (e) {
+        showMsg(e)
+    }
+}
 //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口（即将废弃）
 export function onMenuShareTimeline(title, link, imgUrl) {
     wx.onMenuShareTimeline({
