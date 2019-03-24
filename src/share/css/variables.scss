@@ -1,0 +1,68 @@
+/*
+
+使用比例缩放 高度，px to rem 只能按比例缩放 width，不能缩放 height
+
+此处的高度都是iphone 6 下的高度 ， 单位px
+*/
+$appHeight:667;
+$wxAppHeight:564;
+$wxTitleBar:58;
+$wxBottomBar:45;
+$base-font-size: 12px;
+$base-btn-font-size:13px;
+$music-btn-font-size:18px;
+
+
+$relTop:0;
+@mixin getSize($x1 , $y1 , $x2 , $y2){
+  $w:($x2 - $x1)*2;
+  $h:($y2 - $y1)*2;
+  width: #{abs($w)}px;
+  height: #{abs($h)}px;
+}
+@mixin pos($x1 , $y1 , $x2 , $y2){
+
+  position: absolute;
+  left:#{$x1}px;
+  top:#{$y1}px;
+  @include getSize($x1 , $y1 , $x2 , $y2)
+}
+
+@mixin posCenterLeft($x1 , $y1 , $x2 , $y2){
+
+  position: absolute;
+  left:50%;
+  transform: translateX(-50%);
+  top:#{$y1}px;
+  @include getSize($x1 , $y1 , $x2 , $y2)
+}
+@mixin posCenter($x1 , $y1 , $x2 , $y2){
+
+  $relTop:$y1;
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  @include getSize($x1 , $y1 , $x2 , $y2)
+}
+@mixin posRel($x1 , $y1 , $x2 , $y2 , $top:0 , $zIndex:1){
+  $relTop:$y2;
+  //$t:($y1 -  $relTop) * 2;
+  $t:$top * 2;
+
+  position: relative;
+  margin-top:#{$t}px;
+  z-index: $zIndex;
+  @include getSize($x1 , $y1 , $x2 , $y2)
+}
+@function px($x){
+  @return #{$x * 2}px;
+}
+@mixin posRelCenter($x1 , $y1 , $x2 , $y2 , $top:0){
+  $w:$x2 - $x1;
+  $h:$y2 - $y1;
+
+  position: relative;
+  margin-top:#{$top}px;
+  @include getSize($x1 , $y1 , $x2 , $y2)
+}

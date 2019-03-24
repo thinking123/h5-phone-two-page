@@ -1,4 +1,5 @@
 const {isDev} = require('./utils')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const rules = []
 
@@ -17,7 +18,7 @@ const scssLoader = {
     test: /\.scss$/,
     use: [
         {
-            loader: 'style-loader',
+            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             options: {
                 sourceMap: isDev
             }
@@ -27,6 +28,9 @@ const scssLoader = {
             options: {
                 sourceMap: isDev
             }
+        },
+        {
+            loader:'postcss-loader'
         },
         {
             loader: 'sass-loader',
@@ -43,7 +47,7 @@ const cssLoader = {
     test: /\.css$/,
     use: [
         {
-            loader: 'style-loader',
+            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             options: {
                 sourceMap: isDev
             }
@@ -69,6 +73,51 @@ const vueLoader = {
 }
 
 rules.push(vueLoader)
+
+
+// const urlLoader = {
+//     test: /\.(png|jpg|gif)$/i,
+//     use: [
+//         {
+//             loader: 'url-loader',
+//             options: {
+//                 limit: 200
+//             }
+//         }
+//     ]
+// }
+//
+// rules.push(urlLoader)
+
+
+const fileLoader = {
+    test: /\.(png|jpg|gif|svg)$/,
+    use: [
+        {
+            loader: 'file-loader',
+            options: {
+                name(file) {
+                    if (isDev) {
+                        return '[name].[ext]';
+                    }
+
+                    return '[hash].[ext]';
+                },
+                outputPath: 'images',
+            },
+        }
+    ]
+}
+
+rules.push(fileLoader)
+
+const imageCompressLoader = {
+    test: /\.(jpg|png|gif|svg)$/,
+    loader: 'image-webpack-loader',
+    enforce: 'pre'
+}
+
+rules.push(imageCompressLoader)
 
 module.exports = rules
 

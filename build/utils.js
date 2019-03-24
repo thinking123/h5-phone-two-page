@@ -10,7 +10,7 @@ function getEntries() {
     const entries = {}
     glob.sync(pattern , {
         // root:path.resolve()
-        ignore:[`${CODE_PATH}/share/*`]
+        ignore:[`${CODE_PATH}/share/**/*`]
     }).forEach(m =>{
         console.log('m ' , m)
         const reg = /\/(\w+)\/\w+\.js$/
@@ -26,7 +26,7 @@ function getEntriesName() {
     const pattern = `${CODE_PATH}/**/*.js`
     const entries = []
     glob.sync(pattern , {
-        ignore:[`${CODE_PATH}/share/*`]
+        ignore:[`${CODE_PATH}/share/**/*`]
     }).forEach(f =>{
         console.log('m ' , f)
         const reg = /\/(\w+)\/\w+\.js$/
@@ -39,15 +39,18 @@ function getEntriesName() {
     return entries
 }
 
-function resolve(path) {
-    return path.resolve()
+function resolve(src) {
+    const p = path.resolve(__dirname , '..' , src)
+    console.log('p' , p)
+    return p
 }
 
 
 function getEnv(){
-    const isDev = process.env.NODE_ENV !== 'production'
-    return isDev
+    return process.env.NODE_ENV
 }
+
+
 
 // function isDev(){
 //     return process.env.NODE_ENV !== 'production'
@@ -55,6 +58,7 @@ function getEnv(){
 module.exports = {
     getEntries,
     resolve,
-    isDev:getEnv(),
+    isDev:getEnv() === 'development',
+    getEnv,
     getEntriesName
 }
