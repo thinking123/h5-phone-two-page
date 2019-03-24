@@ -20,6 +20,7 @@ function getEntries() {
         console.log('key' , key)
 
         // entries[key] = m
+        m = resolve(m)
         let html = m.replace('.js' , '.html')
         if(!fs.existsSync(html)){
             html = path.resolve(__dirname , 'html-template.html')
@@ -31,7 +32,7 @@ function getEntries() {
             name:key
         })
     })
-    // console.log('ertries' , entries)
+    console.log('ertries' , entries)
     return entries
 }
 

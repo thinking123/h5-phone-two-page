@@ -20,8 +20,11 @@ rimraf.sync(dist, {} , err=>{
 })
 
 
-
-config.entry = getEntries().map(m=>m.entry)
+const entries = {}
+getEntries().forEach(f=>{
+    entries[f.name] = f.entry
+})
+config.entry = entries
 
 config.output = {
     filename:'[name].js',
@@ -90,5 +93,5 @@ config.module = {
 config.plugins = plugins
 
 
-// console.log('config' , config)
+console.log('config' , config)
 module.exports = config
