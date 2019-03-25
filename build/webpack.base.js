@@ -82,6 +82,7 @@ config.resolve = {
         'debug':resolve('src/share/debug/'),
         'compatibility':resolve('src/share/compatibility/'),
         'images':resolve('src/share/images/'),
+        'store':resolve('src/share/store/'),
     }
 }
 

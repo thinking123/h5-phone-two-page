@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import {CHANGE_LOADING_BAR} from "./store";
+    import {CHANGE_LOADING_BAR} from "store/mutations";
     import Layout from "@/components/Layout/index";
     import {getOS , isWeiXin ,px2Px} from "utils/common";
     import HowToPlayDialog from "./components/HowToPlayDialog/HowToPlayDialog";

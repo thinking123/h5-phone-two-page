@@ -1,10 +1,11 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {getEntries, isDev , getEnv} = require("./utils")
+const {getEntries, isDev , getEnv , resolve} = require("./utils")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CompressionPlugin = require('compression-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const path = require('path')
 
@@ -28,6 +29,12 @@ getEntries().forEach(entry => {
 })
 
 plugins.push(new VueLoaderPlugin())
+
+const copyPlugin = new CopyPlugin([
+    { from: resolve('src/share/libs'), to: resolve('dist/libs') }
+])
+
+plugins.push(copyPlugin)
 
 
 if (!isDev) {
@@ -56,6 +63,8 @@ if(env == 'analyzer'){
     })
     plugins.push(bundle)
 }
+
+
 
 
 

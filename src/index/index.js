@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import App from './App'
-import store from './store'
+import store from 'store'
 
 import 'compatibility/flexible'
 import 'debug'

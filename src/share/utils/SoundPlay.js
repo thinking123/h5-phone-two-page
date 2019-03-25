@@ -1,6 +1,6 @@
-// import store from '../store'
+import store from 'store'
 import {isIphone} from "./common";
-// import {CHANGE_LOADING_BAR} from "../store/mutations";
+import {CHANGE_LOADING_BAR} from "store/mutations";
 
 function getSoundList() {
     const keys = [

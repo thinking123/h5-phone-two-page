@@ -15,10 +15,10 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .loading-bar {
-        width: 32px;
-        height: 28px;
+        width: 16px;
+        height: 14px;
         display: flex;
         flex-direction: row;
         margin: auto;
@@ -37,8 +37,8 @@
     .bar {
         margin-left:1px;
         margin-right:1px;
-        width: 4px;
-        height: 28px;
+        width: 2px;
+        height: 14px;
         animation-name: loading;
         background-color: white;
         animation-duration: 0.3s;
@@ -63,42 +63,42 @@
     @keyframes loading {
         0% {
             margin-top: 0px;
-            height: 28px;
+            height: 14px;
         }
         15% {
-            margin-top: 2px;
-            height: 24px;
-            margin-bottom: 2px;
+            margin-top: 1px;
+            height: 12px;
+            margin-bottom: 1px;
         }
         30% {
-            margin-top: 4px;
-            height: 20px;
-            margin-bottom: 4px;
+            margin-top: 2px;
+            height: 10px;
+            margin-bottom: 2px;
         }
         45% {
-            margin-top: 6px;
-            height: 16px;
-            margin-bottom: 6px;
+            margin-top: 3px;
+            height: 8px;
+            margin-bottom: 3px;
         }
         60% {
-            margin-top: 8px;
-            height: 12px;
-            margin-bottom: 8px;
+            margin-top: 4px;
+            height: 6px;
+            margin-bottom: 4px;
         }
         75% {
-            margin-top: 10px;
-            height: 8px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            height: 4px;
+            margin-bottom: 5px;
         }
         90% {
-            margin-top: 12px;
-            height: 4px;
-            margin-bottom: 12px;
+            margin-top: 6px;
+            height: 2px;
+            margin-bottom: 6px;
         }
         100% {
-            margin-top: 14px;
+            margin-top: 7px;
             height: 0px;
-            margin-bottom: 14px;
+            margin-bottom: 7px;
         }
     }
 

@@ -1,15 +1,28 @@
 <template>
-    <div class="more-arrow-wrap">
+    <div class="more-arrow-wrap" v-if="showScroll">
         <img :src="`${base}rhythm-share-more-arrow.png`">
     </div>
 </template>
 
 <script>
     import {mapGetters, mapMutations} from 'vuex'
+    import {px2Px} from "@/utils/common";
+
     export default {
         name: "MoreArrow",
         computed: {
             ...mapGetters(['base']),
+        },
+        data() {
+            return {
+                showScroll:false
+            }
+        },
+        mounted() {
+
+            if (window.innerHeight < px2Px(667)) {
+                this.showScroll = true
+            }
         }
     }
 </script>

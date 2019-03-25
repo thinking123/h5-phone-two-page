@@ -47,8 +47,8 @@ $relTop:0;
 }
 @mixin posRel($x1 , $y1 , $x2 , $y2 , $top:0 , $zIndex:1){
   $relTop:$y2;
-  //$t:($y1 -  $relTop) * 2;
-  $t:$top * 2;
+  //$t:($y1 -  $relTop) ;
+  $t:$top ;
 
   position: relative;
   margin-top:#{$t}px;
@@ -56,7 +56,7 @@ $relTop:0;
   @include getSize($x1 , $y1 , $x2 , $y2)
 }
 @function px($x){
-  @return #{$x * 2}px;
+  @return #{$x }px;
 }
 @mixin posRelCenter($x1 , $y1 , $x2 , $y2 , $top:0){
   $w:$x2 - $x1;

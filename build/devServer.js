@@ -9,7 +9,8 @@ const devServer = {
     index: 'index.html',
     open: true,
     port: 9080,
-    publicPath: '/'
+    publicPath: '/',
+    writeToDisk:true
 }
 
 

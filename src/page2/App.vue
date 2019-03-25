@@ -115,7 +115,11 @@
     import {getSignInfo} from "utils/http";
     import {showMsg, getOS, isWeiXin , px2Px,ratioPx} from "utils/common";
     import {initShare} from "utils/wx-config";
-    import {CHANGE_LOADING_BAR} from "./store";
+    import {CHANGE_LOADING_BAR} from "store/mutations";
+
+    const page = 'rhythm-select-'
+
+    const recordMaxTime = 10
 
     export default {
         name: "App",
@@ -523,7 +527,7 @@
     }
 
     .show-scroll > .wrap{
-        height: 667*2px;
+        height: 667px;
         width: 100%;
         position: relative;
     }
@@ -564,7 +568,7 @@
     .icon {
         position: relative;
         height: px(454-426);
-        width: 20px;
+        width: 10px;
         transition: transform 0.25s ease-in-out;
         margin: 0 px(5);
     }
@@ -781,7 +785,7 @@
         /*z-index: 100;*/
         /*position: absolute;*/
         /*height: 7.8%;*/
-        width: 96px;
+        width: 48px;
         height: 100%;
         /*background-size: 100% 100%;*/
         /*background-repeat: no-repeat;*/
@@ -962,10 +966,10 @@
             opacity: 1;
         }
         90%{
-            bottom: 30*2px;
+            bottom: 30px;
         }
         100%{
-            bottom: 30*2px;
+            bottom: 30px;
             opacity: 0;
         }
     }

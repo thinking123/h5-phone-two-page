@@ -91,7 +91,7 @@
         /*font-family: MusicFont1 !important;*/
         /*position: absolute;*/
         /*height: 7.8%;*/
-        width: 96px;
+        width: 48px;
         /*background-image: url("./btn-wrap.png");*/
         /*background-size: 100% 100%;*/
         /*background-repeat: no-repeat;*/
@@ -100,9 +100,9 @@
         align-items: center;
         font-weight: bold;
         color: #0094FF;
-        font-size: 50px;
+        font-size: 25px;
 
-        margin: 0 5px;
+        margin: 0 2px;
         >img{
             width: 100%;
             height: 100%;
