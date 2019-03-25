@@ -76,7 +76,8 @@
             handlePushPage() {
 
                 // createjs.WebAudioPlugin.playEmptySound();
-                this.$router.push({name: 'select'})
+                // this.$router.push({name: 'select'})
+                window.location.href = `${window.location.origin}/page2.html`
             },
             handleShowPlay() {
                 this.showHowtoplay = true
@@ -90,30 +91,8 @@
 </script>
 
 <style scoped lang="scss">
-    @import "css/mixin";
+    /*@import "css/mixin";*/
 
-    /*page{*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*}*/
-
-    .video-container{
-        position: fixed;
-        height: 100%;
-        width: 100%;
-    }
-    .play-video{
-
-        height: 100%;
-        width: 100%;
-    }
-    .video-cs{
-        z-index: 100;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-    }
     .container {
         height: 100%;
         width: 100%;
@@ -162,47 +141,7 @@
         /*border: 1px solid yellow;*/
     }
 
-    .skip-button{
-        z-index: 10000;
-        position: fixed;
-        top:32px;
-        right:32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 28px;
-        width: 64px;
-        height: 64px;
-        border-radius: 64px;
-        border: 0;
-        margin: 0;
-        background-color: white;
-    }
 
-    .more-arrow{
-        position: fixed;
-        bottom: 0;
-        left:50%;
-        transform: translateX(-50%);
-        animation: more-arrow 3s linear infinite;
-        opacity: 0;
-        z-index: 1000;
-    }
-    @keyframes  more-arrow{
-        0%{
-            bottom: 0;
-            opacity: 0;
-        }
-        10%{
-            bottom: 0;
-            opacity: 1;
-        }
-        90%{
-            bottom: 30px;
-        }
-        100%{
-            bottom: 30px;
-            opacity: 0;
-        }
-    }
+
+
 </style>

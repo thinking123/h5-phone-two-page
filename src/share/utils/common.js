@@ -213,11 +213,11 @@ export function showMsg(title, showIcon = false) {
     options = Object.assign(options, {icon: showIcon ? icon : 'none'})
 
 
-    Toast({
-        message: title,
-        position: 'middle',
-        duration: 2000
-    });
+    // Toast({
+    //     message: title,
+    //     position: 'middle',
+    //     duration: 2000
+    // });
     // wx.showToast(options)
 
     console.log(title, icon, isError , Toast)

@@ -1,4 +1,4 @@
-import store from '../store'
+// import store from '../store'
 import {getSignInfo} from "./http";
 import {showMsg} from "./common";
 
