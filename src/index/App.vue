@@ -16,7 +16,7 @@
 <script>
     import {CHANGE_LOADING_BAR} from "store/mutations";
     import Layout from "@/components/Layout/index";
-    import {getOS , isWeiXin ,px2Px} from "utils/common";
+    import {getOS , isWeiXin ,px2Px , showMsg} from "utils/common";
     import HowToPlayDialog from "./components/HowToPlayDialog/HowToPlayDialog";
     import {mapGetters , mapMutations} from 'vuex'
     const page = 'music-journey-'
@@ -41,6 +41,8 @@
             if(window.innerHeight < px2Px(667)){
                 this.showScroll = true
             }
+
+            showMsg('loading')
             // const link = window.location.href.split('#')[0]
             // const imgUrl = `${this.base}music-journey-bg.png`
             //

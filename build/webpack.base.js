@@ -2,51 +2,47 @@ const rimraf = require('rimraf')
 const px2rem = require('postcss-px2rem')
 
 const webpack = require('webpack')
-const {getEntries , isDev , resolve} = require("./utils")
+const {getEntries, isDev, resolve} = require("./utils")
 const path = require('path')
 const rules = require('./loaders')
 const plugins = require('./plugins')
 const devServer = require('./devServer')
 
 
-
-
-
 const config = {}
-const dist = path.resolve( __dirname ,'..' , 'dist')
-console.log('dist' , dist)
-rimraf.sync(dist, {} , err=>{
-    console.log('rm dist failure' , err)
+const dist = path.resolve(__dirname, '..', 'dist')
+console.log('dist', dist)
+rimraf.sync(dist, {}, err => {
+    console.log('rm dist failure', err)
 })
 
 
 const entries = {}
-getEntries().forEach(f=>{
+getEntries().forEach(f => {
     entries[f.name] = f.entry
 })
 config.entry = entries
 
 config.output = {
-    filename:'[name].js',
-    path:dist
+    filename: '[name].js',
+    path: dist
 }
 
 
-
-if(isDev){
-    config.devtool =  'inline-source-map'
+if (isDev) {
+    config.devtool = 'inline-source-map'
     config.devServer = devServer
 
-}else{
+} else {
     config.optimization = {
         runtimeChunk: {
             name: 'runtime'
         },
-        splitChunks:{
-            chunks:'all',
+        splitChunks: {
+            chunks: 'all',
             // minSize:10000,
             cacheGroups: {
-                vue:{
+                vue: {
                     // test: /\/node_modules\/vue\//,
                     test: /[\\/]node_modules[\\/](vue)[\\/]/,
                     name: 'vue',
@@ -57,13 +53,13 @@ if(isDev){
                 //     priority: -20,
                 //     reuseExistingChunk: true
                 // }
-                vender:{
+                vender: {
                     // test: /\/node_modules\/vue\//,
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vender',
-                    priority:-1,
+                    priority: -1,
                     chunks: 'all',
-                    minSize:10000
+                    minSize: 10000
                 }
             }
         }
@@ -72,17 +68,18 @@ if(isDev){
 
 
 config.resolve = {
-    extensions: ['.js', '.json' , '.vue' , '.css' , '.scss' , '.less'],
-    alias:{
-        '@':resolve('src/share/'),
-        'components':resolve('src/share/components/'),
-        'css':resolve('src/share/css/'),
-        'libs':resolve('src/share/libs/'),
-        'utils':resolve('src/share/utils/'),
-        'debug':resolve('src/share/debug/'),
-        'compatibility':resolve('src/share/compatibility/'),
-        'images':resolve('src/share/images/'),
-        'store':resolve('src/share/store/'),
+    extensions: ['.js', '.json', '.vue', '.css', '.scss', '.less'],
+    alias: {
+        '@': resolve('src/share/'),
+        'components': resolve('src/share/components/'),
+        'css': resolve('src/share/css/'),
+        'libs': resolve('src/share/libs/'),
+        'utils': resolve('src/share/utils/'),
+        'debug': resolve('src/share/debug/'),
+        'compatibility': resolve('src/share/compatibility/'),
+        'images': resolve('src/share/images/'),
+        'store': resolve('src/share/store/'),
+        'vue': 'vue/dist/vue.js'
     }
 }
 
@@ -96,5 +93,5 @@ config.module = {
 config.plugins = plugins
 
 
-console.log('config' , config)
+console.log('config', config)
 module.exports = config
