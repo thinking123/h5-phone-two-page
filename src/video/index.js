@@ -6,6 +6,8 @@ import store from 'store'
 
 import 'compatibility/flexible'
 
+import 'css/index.css'
+
 new Vue({
     store,
     render:h => h(App)

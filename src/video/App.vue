@@ -149,49 +149,42 @@
         }
     }
 </script>
+<style>
 
-<style scoped>
+</style>
+<style scoped lang="scss">
     .wrap {
         width: 100%;
         height: 100%;
         position: relative;
+        overflow: hidden;
     }
-
-    .tap {
-        width: 20%;
-        height: 20%;
-        position: absolute;
-        z-index: 100;
-        background-color: yellow;
+    #app {
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
     }
 
     button {
         z-index: 10000;
         position: fixed;
-        top: 132px;
-        right: 32px;
+        top: 66px;
+        right: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 28px;
-        width: 64px;
-        height: 64px;
-        border-radius: 64px;
+        font-size: 14px;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
         border: 0;
         margin: 0;
         background-color: white;
+        white-space: nowrap;
+        text-align: center;
     }
 
-    .canvas {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        /*border: 1px solid green;*/
-    }
+
 
     .control-wrap {
         position: absolute;
@@ -224,13 +217,7 @@
 
     }
 
-    .title-bar {
-        position: fixed;
-        width: 100%;
-        height: 100px;
-        background-color: sandybrown;
-        z-index: 10000;
-    }
+
 
     .bg-btn-wrap {
         position: absolute;
@@ -248,8 +235,8 @@
     }
 
     .bg-btn {
-        width: 128 rpx;
-        height: 128 rpx;
+        width: 32px;
+        height: 32px;
     }
 
     /*.video {*/
