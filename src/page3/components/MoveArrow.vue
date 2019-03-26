@@ -18,8 +18,8 @@
     $delay:0s;
     $fun:ease-out;
 .move-arrow{
-    width: 30px;
-    height: 30px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     .line{
         position: absolute;
@@ -31,7 +31,7 @@
         animation:$speed arrows1 $delay $fun infinite;
     }
     .line2{
-        width: 42px;
+        width: 21px;
         right: 0;
         transform-origin: bottom right;
         transform: rotate(-45deg);

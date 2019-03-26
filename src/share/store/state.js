@@ -1,3 +1,10 @@
+import {getSession} from "@/utils/common";
+
+let timeline = getSession('timeline')
+timeline = timeline ? JSON.parse(timeline) : null
+
+let openid = getSession('openid')
+let nickname = getSession('nickname')
 
 
 export default {
@@ -15,9 +22,9 @@ export default {
     signature:'',
     timestamp:'',
     showVideo:true,
-    openid:'',
+    openid:openid,
     headimgurl:'',
-    nickname:'',
+    nickname:nickname,
     sex:'',
     timeline:[],
     isConfigedShare:false

@@ -16,7 +16,7 @@
 <script>
     import {CHANGE_LOADING_BAR} from "store/mutations";
     import Layout from "@/components/Layout/index";
-    import {getOS , isWeiXin ,px2Px , showMsg} from "utils/common";
+    import {getOS , isWeiXin ,px2Px , showMsg,getQueryStringParams , navigateTo} from "utils/common";
     import HowToPlayDialog from "./components/HowToPlayDialog/HowToPlayDialog";
     import {mapGetters , mapMutations} from 'vuex'
     const page = 'music-journey-'
@@ -38,11 +38,14 @@
 
         mounted() {
 
+            const {openid,nickname} = getQueryStringParams()
+            this.setopenid( openid)
+            this.setnickname(nickname)
             if(window.innerHeight < px2Px(667)){
                 this.showScroll = true
             }
 
-            showMsg('loading')
+            // showMsg('loading')
             // const link = window.location.href.split('#')[0]
             // const imgUrl = `${this.base}music-journey-bg.png`
             //
@@ -60,26 +63,15 @@
             // }
         },
         methods: {
-            ...mapMutations([CHANGE_LOADING_BAR, 'setLoadingText']),
-            async init() {
-                try {
-                    console.log('headimgurl' , this.headimgurl)
-                    // this.CHANGE_LOADING_BAR(true)
-                    await this.$music.init()
-                } catch (e) {
-                    console.log('login error ', e)
-                }finally {
-                    // this.CHANGE_LOADING_BAR(false)
-                }
-            },
-            touchstart(){
-                // createjs.HTMLAudioPlugin.playEmptySound();
-            },
+            ...mapMutations([CHANGE_LOADING_BAR, 'setLoadingText','setnickname','setopenid']),
             handlePushPage() {
 
                 // createjs.WebAudioPlugin.playEmptySound();
                 // this.$router.push({name: 'select'})
                 window.location.href = `${window.location.origin}/page2.html`
+
+                navigateTo('page2.html')
+
             },
             handleShowPlay() {
                 this.showHowtoplay = true

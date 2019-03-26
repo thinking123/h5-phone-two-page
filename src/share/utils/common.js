@@ -1,28 +1,6 @@
 // import { Toast } from 'mint-ui';
 import MsgToast from 'components/MsgToast'
-export const sites =  [
-    {value: '海陵区', key: '0'},
-    {value: '高港区', key: '1'},
-    {value: '医药高新区', key: '2'},
-    {value: '姜堰区', key: '3'},
-    {value: '泰兴市', key: '4'},
-    {value: '靖江市', key: '5'},
-    {value: '兴化市', key: '6'},
-    {value: '市直', key: '7'},
-]
 
-export const titles = [
-    {title:'' , tip:''}
-]
-export function getSiteByKey(key) {
-    if(key && key >= 0 && key <= 7){
-        const site = sites.find(f=>f.key == key)
-        return site.value
-    }else{
-        return null
-    }
-
-}
 
 export function isObjEmpty(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object
@@ -282,4 +260,68 @@ export function ratioPx(iphone6px) {
     console.log('current px ' , px_cur)
 
     return px_cur
+}
+
+export function setSession(key , v) {
+    v = typeof v === 'string' ? v : JSON.stringify(v)
+    sessionStorage.setItem(key , v)
+}
+
+export function getSession(key) {
+    let v = sessionStorage.getItem(key)
+    return v ? v : null
+}
+
+export function getQueryStringParams() {
+    // url = url ? url : window.location.href
+    let query = window.location.search
+    return query
+        ? (/^[?#]/.test(query) ? query.slice(1) : query)
+            .split('&')
+            .reduce((params, param) => {
+                    let [key, value] = param.split('=');
+                    params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+                    return params;
+                }, {}
+            )
+        : {}
+}
+
+export function navigateTo(url , query , isReplace = false) {
+    let origin = window.location.origin
+    url = url.replace(/[?].*$/ , '')
+    if(url.indexOf('http') == -1){
+        url = `${origin}/${url.replace(/^\// , '')}`
+    }
+    if(query && !isObjEmpty(query)){
+        query = serializeQuery(query)
+        url = `${url}?${query}`
+    }
+
+    if(isReplace){
+        window.location.replace(url)
+    }else{
+        window.location.href = url
+    }
+
+}
+
+export function serializeQuery(query) {
+    let str = [];
+    for (let p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
+
+export function disableNavigateBack() {
+    if(window.history && window.history.pushState){
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    }else{
+        console.log('not window.history.pushState')
+    }
 }

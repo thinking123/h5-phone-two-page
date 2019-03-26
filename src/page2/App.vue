@@ -113,7 +113,7 @@
     import MusicBtn from "./components/MusicBtn";
     import StartRecordingBar from "./components/StartRecordingBar";
     import {getSignInfo} from "utils/http";
-    import {showMsg, getOS, isWeiXin , px2Px,ratioPx} from "utils/common";
+    import {showMsg, getOS, isWeiXin , px2Px,ratioPx , navigateTo} from "utils/common";
     import {initShare} from "utils/wx-config";
     import {CHANGE_LOADING_BAR} from "store/mutations";
 
@@ -284,9 +284,10 @@
                 //     name:'share'
                 // })
 
-                this.$router.push({
-                    name: 'share'
-                })
+                navigateTo('page3.html')
+                // this.$router.push({
+                //     name: 'share'
+                // })
             },
             handleTouchingEnd(e) {
                 console.log('handleTouchingEnd' , e)

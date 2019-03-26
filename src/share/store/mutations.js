@@ -1,3 +1,5 @@
+import {setSession} from "@/utils/common";
+
 export const CHANGE_LOADING_BAR = "CHANGE_LOADING_BAR"
 const loadQueue = []
 export default {
@@ -33,18 +35,21 @@ export default {
     },
     setopenid(state ,openid){
         state.openid = openid
+        setSession('openid' , openid)
     },
     setheadimgurl(state ,headimgurl){
         state.headimgurl = headimgurl
     },
     setnickname(state ,nickname){
         state.nickname = nickname
+        setSession('nickname' , nickname)
     },
     setsex(state ,sex){
         state.sex = sex
     },
     settimeline(state ,timeline){
         state.timeline = timeline
+        setSession('timeline' , timeline)
     },
     setsignInfo(state ,signInfo){
         state.signInfo = signInfo

@@ -14,7 +14,9 @@
                      v-if="rand == 6"
                      class="img6-text"/>
 
-                <move-arrow class="arrow"/>
+                <!--<move-arrow class="arrow"/>-->
+
+                <move-arrow-ex />
 
                 <img :src="textIcon1"
                      ref="icon1"
@@ -78,20 +80,21 @@
 
 <script>
 
-    import {showMsg, getRandomInt, isWeiXin,px2Px } from "utils/common";
+    import {showMsg, getRandomInt, isWeiXin,px2Px,getQueryStringParams } from "utils/common";
     import {mapGetters, mapMutations} from 'vuex'
     import {CHANGE_LOADING_BAR} from "store/mutations";
-    import {getSignInfo, uploadRecord, getAvater} from "utils/http";
+    import {getSignInfo, uploadRecord, getAvater } from "utils/http";
     import {initShare} from "utils/wx-config";
     import MoveArrow from "./components/MoveArrow";
     import Avatar from "./components/avatar";
     import Icon3 from "./components/Icon3";
     import Layout from "@/components/Layout/index";
+    import MoveArrowEx from "./components/MoveArrowEx";
 
     const page = 'rhythm-share-'
     export default {
         name: "rhythm-share",
-        components: {Layout, Icon3, Avatar, MoveArrow},
+        components: {MoveArrowEx, Layout, Icon3, Avatar, MoveArrow},
         computed: {
             ...mapGetters(['base', 'headimgurl', 'nickname', 'openid', 'timeline']),
             baseUrl() {
@@ -163,36 +166,6 @@
             this.init()
         },
         methods: {
-            async getWeChatUserHeadImg(picurl) {
-
-                return new Promise((res, rej) => {
-                    try {
-                        let img = new Image()
-                        let canvas = document.createElement('CANVAS')
-                        let ctx = canvas.getContext('2d')
-                        img.crossOrigin = 'Anonymous'
-                        img.onload = function () {
-                            console.log('getWeChatUserHeadImg')
-                            canvas.height = img.height
-                            canvas.width = img.width
-                            ctx.drawImage(img, 0, 0)
-                            var dataURL = canvas.toDataURL('image/png')
-                            console.log('dataURL', dataURL)
-                            canvas = null
-
-                            const resImg = new Image()
-                            resImg.src = dataURL
-
-                            res(resImg)
-                        }
-                        img.src = picurl
-                    } catch (e) {
-                        rej(e)
-                    }
-
-                })
-
-            },
             handlePreview() {
                 console.log('handlePreview')
                 this.showPreview = false
@@ -207,7 +180,7 @@
             ...mapMutations([CHANGE_LOADING_BAR, 'setLoadingText', 'settimeline', 'setheadimgurl', 'setnickname', 'setopenid']),
             async init() {
                 try {
-                    let {id, rand} = this.$route.query
+                    let {id, rand} = getQueryStringParams()
 
                     this.isFromShare = !!rand
                     this.rand = this.isFromShare ? rand : getRandomInt(1, 6)
@@ -571,40 +544,13 @@
                 // // alert(r)
                 // window.location.href = r
             }
-        },
-        beforeRouteEnter(to, from, next) {
-            next()
-        },
-        beforeRouteUpdate(to, from, next) {
-            next()
-        },
-        async beforeRouteLeave(to, from, next) {
-
-            try {
-                // createjs.Sound.removeAllSounds();
-                console.log('cleanr sounds')
-                clearInterval(this.playRecordTime)
-                this.playRecordTime = null
-
-
-            } catch (e) {
-                console.error('beforeRouteLeave', e)
-            } finally {
-                if(to.fullPath && to.fullPath.indexOf('video') > -1){
-                    next({name:'select' , redirect:true})
-                }else{
-                    next()
-                }
-            }
-
-
         }
     }
 </script>
 
 <style scoped lang="scss">
 
-
+    @import "css/variables";
     .more-arrow{
         position: fixed;
         bottom: 0;
@@ -661,9 +607,9 @@
         left: 43px;
     }
 
-    .canvas {
-        display: none;
-    }
+    /*.canvas {*/
+        /*display: none;*/
+    /*}*/
 
     .container {
         height: 100%;
@@ -1100,7 +1046,7 @@
     .img6-text {
         position: absolute;
         bottom: 2%;
-        height: 142px;
+        height: 71px;
         left: px(255);
         width: px(272-255);
     }
