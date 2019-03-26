@@ -25,6 +25,9 @@ function getSoundList() {
     })
 }
 let isSoundReady = false
+/*
+* IOS 如果是静音模式，不能播放音乐
+* */
 class SoundPlay {
     /**
      *
@@ -39,7 +42,7 @@ class SoundPlay {
 
         console.log(this.ids)
         this.queue = new createjs.LoadQueue()
-        // createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin]);
+        createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin]);
         createjs.Sound.alternateExtensions = ["mp3"];
         this.queue.installPlugin(createjs.Sound);
         this.queue.on('fileload' , this.handleFileLoad)
