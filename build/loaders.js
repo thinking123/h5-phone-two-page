@@ -18,7 +18,7 @@ const scssLoader = {
     test: /\.scss$/,
     use: [
         {
-            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            loader: isDev ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
             options: {
                 sourceMap: isDev
             }
@@ -26,7 +26,8 @@ const scssLoader = {
         {
             loader: 'css-loader',
             options: {
-                sourceMap: isDev
+                sourceMap: isDev,
+                importLoaders: 1
             }
         },
         {
@@ -54,7 +55,7 @@ const cssLoader = {
     test: /\.css$/,
     use: [
         {
-            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            loader: isDev ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
             options: {
                 sourceMap: isDev
             }

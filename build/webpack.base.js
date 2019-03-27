@@ -29,6 +29,9 @@ if(isDev){
         path: dist
     }
 
+
+
+
 }else{
     config.output = {
         filename: 'js/[name].[contenthash].js',
@@ -37,6 +40,14 @@ if(isDev){
 
 }
 
+// config.stats = {
+//     cached: false,
+//     cachedAssets: false,
+//     chunks: false,
+//     chunkModules: false,
+//     chunkOrigins: false,
+//     modules: false
+// }
 
 if (isDev) {
     config.devtool = 'inline-source-map'

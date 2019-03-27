@@ -41,8 +41,8 @@ plugins.push(copyPlugin)
 
 if (!isDev) {
     const minCssPlugin = new MiniCssExtractPlugin({
-        filename: isDev ? 'css/[name].css' : 'css/[contenthash].css',
-        chunkFilename: isDev ? 'css/[id].css' : 'css/[contenthash].css',
+        filename: isDev ? 'css/[name].css' : 'css/[name].[contenthash].css',
+        chunkFilename: isDev ? 'css/[id].css' : 'css/[name].[contenthash].css',
     })
 
     plugins.push(minCssPlugin)

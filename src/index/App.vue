@@ -91,8 +91,6 @@
         height: 100%;
         width: 100%;
         position: relative;
-        left: 0;
-
         margin: 0;
         padding: 0;
         overflow: hidden;
