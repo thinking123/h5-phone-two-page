@@ -17,10 +17,10 @@ function getEntries() {
         if(m.indexOf('index.js') == -1){
             return
         }
-        console.log('m ' , m)
+        // console.log('m ' , m)
         const reg = /\/(\w+)\/\w+\.js$/
         const key = m.match(reg)[1]
-        console.log('key' , key)
+        // console.log('key' , key)
 
         // entries[key] = m
         m = resolve(m)
@@ -28,21 +28,21 @@ function getEntries() {
         if(!fs.existsSync(html)){
             html = path.resolve(__dirname , 'html-template.html')
         }
-        console.log('html' , html)
+        // console.log('html' , html)
         entries.push({
             html:html,
             entry:m,
             name:key
         })
     })
-    console.log('ertries' , entries)
+    // console.log('ertries' , entries)
     return entries
 }
 
 
 function resolve(src) {
     const p = path.resolve(__dirname , '..' , src)
-    console.log('p' , p)
+    // console.log('p' , p)
     return p
 }
 
@@ -66,11 +66,11 @@ function getIP(){
 
             if (alias >= 1) {
                 // this single interface has multiple ipv4 addresses
-                console.log(ifname + ':' + alias, iface.address);
+                // console.log(ifname + ':' + alias, iface.address);
             } else {
                 // this interface has only one ipv4 adress
-                console.log('ifname, iface.address')
-                console.log(ifname, iface.address);
+                // console.log('ifname, iface.address')
+                // console.log(ifname, iface.address);
                 ip = iface.address
             }
             ++alias;

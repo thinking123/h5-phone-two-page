@@ -11,7 +11,7 @@ const devServer = require('./devServer')
 
 const config = {}
 const dist = path.resolve(__dirname, '..', 'dist')
-console.log('dist', dist)
+// console.log('dist', dist)
 rimraf.sync(dist, {}, err => {
     console.log('rm dist failure', err)
 })
@@ -23,9 +23,18 @@ getEntries().forEach(f => {
 })
 config.entry = entries
 
-config.output = {
-    filename: '[name].js',
-    path: dist
+if(isDev){
+    config.output = {
+        filename: '[name].js',
+        path: dist
+    }
+
+}else{
+    config.output = {
+        filename: 'js/[name].[contenthash].js',
+        path: dist
+    }
+
 }
 
 
@@ -41,26 +50,35 @@ if (isDev) {
         splitChunks: {
             chunks: 'all',
             // minSize:10000,
+            // maxAsyncRequests:100,
             cacheGroups: {
                 vue: {
                     // test: /\/node_modules\/vue\//,
                     test: /[\\/]node_modules[\\/](vue)[\\/]/,
                     name: 'vue',
+                    priority: -9,
                     chunks: 'all',
+                    reuseExistingChunk: true
                 },
-                // default: {
-                //     minChunks: 2,
-                //     priority: -20,
-                //     reuseExistingChunk: true
-                // }
                 vender: {
                     // test: /\/node_modules\/vue\//,
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vender',
-                    priority: -1,
+                    priority: -10,
                     chunks: 'all',
-                    minSize: 10000
-                }
+                    minSize: 10000,
+                    reuseExistingChunk: true,
+                    enforce: true
+                },
+                share: {
+                    // test: /\/node_modules\/vue\//,
+                    test: /src[\\/](share)[\\/]/,
+                    name: 'share',
+                    chunks: 'all',
+                    priority: -8,
+                    minSize: 10000,
+                    reuseExistingChunk: true
+                },
             }
         }
     }
@@ -93,5 +111,5 @@ config.module = {
 config.plugins = plugins
 
 
-console.log('config', config)
+// console.log('config', config)
 module.exports = config

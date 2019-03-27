@@ -10,6 +10,11 @@ import 'debug'
 import 'css/index.css'
 import 'css/variables.scss'
 
+
+
+
+
+
 new Vue({
     store,
     render:h => h(App)

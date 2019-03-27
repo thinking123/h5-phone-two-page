@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {getEntries, isDev , getEnv , resolve} = require("./utils")
@@ -7,6 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CompressionPlugin = require('compression-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
+const {HTML_TITLE} = require('./constant')
 const path = require('path')
 
 const plugins = []
@@ -15,11 +17,11 @@ getEntries().forEach(entry => {
 
     const name = entry.name
     const html = entry.html
-    console.log('getEntriesName', name)
+    // console.log('getEntriesName', name)
     const config = {
         template: html,
         filename: `${name}.html`,
-        title: name,
+        title: HTML_TITLE,
         chunks: [name]
     }
     const htmlPlugin = new HtmlWebpackPlugin(config)
@@ -39,8 +41,8 @@ plugins.push(copyPlugin)
 
 if (!isDev) {
     const minCssPlugin = new MiniCssExtractPlugin({
-        filename: isDev ? 'css/[name].css' : 'css/[name].[hash].css',
-        chunkFilename: isDev ? 'css/[id].css' : 'css/[id].[hash].css',
+        filename: isDev ? 'css/[name].css' : 'css/[contenthash].css',
+        chunkFilename: isDev ? 'css/[id].css' : 'css/[contenthash].css',
     })
 
     plugins.push(minCssPlugin)
@@ -54,6 +56,12 @@ if (!isDev) {
     const compressionPlugin = new CompressionPlugin()
 
     plugins.push(compressionPlugin)
+
+
+
+    const hashMoudleIdsPlugin = new webpack.HashedModuleIdsPlugin({})
+
+    plugins.push(hashMoudleIdsPlugin)
 }
 
 if(env == 'analyzer'){
