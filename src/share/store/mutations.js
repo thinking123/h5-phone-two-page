@@ -18,21 +18,6 @@ export default {
     setLoadingText(state ,loadingText){
         state.loadingText = loadingText
     },
-    setRecordId(state ,id){
-        state.recordId = id
-    },
-    setIsPlaying(state ,isPlaying){
-        state.isPlaying = isPlaying
-    },
-    setIsPlayingRecord(state ,isPlayingRecord){
-        state.isPlayingRecord = isPlayingRecord
-    },
-    setIsStartRecording(state ,isStartRecording){
-        state.isStartRecording = isStartRecording
-    },
-    setShowVideo(state ,showVideo){
-        state.showVideo = showVideo
-    },
     setopenid(state ,openid){
         state.openid = openid
         setSession('openid' , openid)
@@ -46,15 +31,5 @@ export default {
     },
     setsex(state ,sex){
         state.sex = sex
-    },
-    settimeline(state ,timeline){
-        state.timeline = timeline
-        setSession('timeline' , timeline)
-    },
-    setsignInfo(state ,signInfo){
-        state.signInfo = signInfo
-    },
-    setisConfigedShare(state ,isConfigedShare){
-        state.isConfigedShare = isConfigedShare
-    },
+    }
 }
