@@ -14,9 +14,9 @@
                      v-if="rand == 6"
                      class="img6-text"/>
 
-                <!--<move-arrow class="arrow"/>-->
+                <move-arrow/>
 
-                <move-arrow-ex />
+                <!--<move-arrow-ex />-->
 
                 <img :src="textIcon1"
                      ref="icon1"
@@ -722,12 +722,7 @@
         z-index: 100;
     }
 
-    .arrow {
 
-        top: 16px;
-        right: 16px;
-
-    }
 
     $speed: 3s;
     $speed6: $speed * 2;
