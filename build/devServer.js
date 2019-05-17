@@ -10,7 +10,10 @@ const devServer = {
     open: true,
     port: 9080,
     publicPath: '/',
-    writeToDisk:true
+    writeToDisk:true,
+    proxy:{
+        '/':'http://117.50.69.235:81/api'
+    }
 }
 
 

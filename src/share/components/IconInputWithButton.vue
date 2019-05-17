@@ -2,38 +2,40 @@
     <div class="icon-input">
         <img class="icon" :src="`images/${icon}_icon.png`"/>
         <!--<img class="icon" src="../images/person_icon.png"/>-->
-        <input  v-model="inputVal" :placeholder="placeholder" class="content"/>
-        <button>
+        <input v-model="inputVal" :placeholder="placeholder" class="content"/>
+        <button @click="handleEmitCode">
             {{btnText}}
         </button>
     </div>
 </template>
 
 <script>
+    import {showMsg} from "@/utils/common";
+
     export default {
         name: "IconInputWithButton",
-        props:{
-            icon:{
-                type:String
+        props: {
+            icon: {
+                type: String
             },
-            placeholder:{
-                type:String,
-                default:"请输入"
+            placeholder: {
+                type: String,
+                default: "请输入"
             },
-            type:{
-                type:String,
-                default:"text"
+            type: {
+                type: String,
+                default: "text"
             },
-            btnText:{
-                type:String,
-                default:"验证码"
-            },
-            val:{
-                type:String
+            // btnText: {
+            //     type: String,
+            //     default: "验证码"
+            // },
+            val: {
+                type: String
             },
         },
-        computed:{
-            inputVal:{
+        computed: {
+            inputVal: {
                 set(v) {
                     this.$emit('update:val', v)
                 },
@@ -44,7 +46,45 @@
         },
         data() {
             return {
+                isCountDowning: false,
+                btnText: "验证码"
+            }
+        },
+        methods: {
+            handleEmitCode() {
+                if (this.isCountDowning) {
+                    return
+                }
 
+                const pReg = /^[1][0-9]{10}$/;
+                if (!this.inputVal || !pReg.test(this.inputVal.trim())) {
+                    showMsg("输入正确手机号")
+                    return false
+                }
+                this.coundDown()
+                this.$emit("emitcode")
+            },
+            coundDown() {
+                let start = 60;
+                let temp = this.btnText
+                this.isCountDowning = true
+                this.btnText = start
+                this.time = setInterval(e => {
+                    start--;
+                    this.btnText = start
+                    if (start < 0) {
+                        this.isCountDowning = false
+                        clearInterval(this.time);
+                        this.time = null
+                        this.btnText = temp
+                    }
+                }, 1000);
+            }
+        },
+        beforeDestroy() {
+            if (this.time) {
+                clearInterval(this.time)
+                this.time = null
             }
         }
     }
@@ -52,9 +92,10 @@
 
 <style scoped lang="scss">
     @import "css/variables";
-    $size:18px;
 
-    .icon-input{
+    $size: 18px;
+
+    .icon-input {
         width: 276px;
         height: 42px;
         background-color: white;
@@ -63,7 +104,8 @@
         flex-direction: row;
         align-items: center;
         position: relative;
-        .icon{
+
+        .icon {
             margin-left: 17px;
             height: 27px;
             width: 23px;
@@ -71,7 +113,7 @@
         }
 
 
-        input{
+        input {
             margin-left: 15px;
             height: 27px;
             border: none;
@@ -80,21 +122,22 @@
             /*width: 400px;*/
         }
 
-        .content{
+        .content {
             display: inline-block;
             width: 300px;
         }
-        ::placeholder{
+
+        ::placeholder {
             color: #E2E0E0;
-            font-size: $size;//no rem
+            font-size: $size; //no rem
             vertical-align: center;
         }
 
 
-        button{
+        button {
             position: absolute;
             right: 5px;
-            top:50%;
+            top: 50%;
             transform: translateY(-50%);
             height: 34px;
             width: 75px;

@@ -2,7 +2,7 @@ import axios from 'axios'
 // import store from '../store'
 const pro = process.env.NODE_ENV === 'production'
 axios.defaults.timeout = 20000;
-axios.defaults.baseURL = pro ?'http://pepsimusic.ysmine.com/' : '/' ;
+axios.defaults.baseURL = pro ?'http://117.50.69.235:81/' : '/' ;
 
 let timer = []
 //
