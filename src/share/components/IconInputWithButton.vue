@@ -1,8 +1,8 @@
 <template>
     <div class="icon-input">
-        <img class="icon" :src="`images/${icon}_icon.png`"/>
+        <img class="icon" :src="require(`../images/${this.icon}_icon.png`)"/>
         <!--<img class="icon" src="../images/person_icon.png"/>-->
-        <input v-model="inputVal" :placeholder="placeholder" class="content"/>
+        <input v-model="inputVal" :placeholder="placeholder" class="content" :type="type"/>
         <button @click="handleEmitCode">
             {{btnText}}
         </button>

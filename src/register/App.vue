@@ -3,8 +3,8 @@
         <div class="page">
             <div class="form">
                 <icon-input icon="person" :val.sync="name" placeholder="请填写会员名称"/>
-                <icon-input-with-button icon="phone" :val.sync="phone" placeholder="请输入手机号" @emitcode="handleEmitCode"/>
-                <icon-input icon="code" :val.sync="code" placeholder="请输入验证码"/>
+                <icon-input-with-button icon="phone" :val.sync="phone" placeholder="请输入手机号" @emitcode="handleEmitCode" type="tel"/>
+                <icon-input icon="code" :val.sync="code" placeholder="请输入验证码" type="tel"/>
                 <button @click="handleSubmit">
                     注册会员
                 </button>

@@ -1,7 +1,9 @@
 <template>
     <div class="icon-input">
-        <img class="icon" :src="`images/${icon}_icon.png`"/>
-        <!--<img class="icon" src="../images/person_icon.png"/>-->
+        <!--<img class="icon" :src="`images/${icon}_icon.png`"/>-->
+        <!--<img class="icon" :src="`require(@/assets/img/home/carousel/${item.img_src})`"/>-->
+        <!-- <img :src=" require(@/assets/img/home/carousel/${item.img_src}) " />-->
+        <img class="icon" :src=" require(`../images/${this.icon}_icon.png`)"/>
         <input :type="type" v-model="inputVal" :placeholder="placeholder"/>
     </div>
 </template>
@@ -33,6 +35,11 @@
                 get() {
                     return this.val
                 },
+                imgSrc(){
+                    const url = `../images/${this.icon}_icon.png`
+                    const img = require(url)
+                    return img
+                }
             }
         },
         data() {

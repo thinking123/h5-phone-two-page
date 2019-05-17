@@ -51,6 +51,6 @@
 
 
     .weui-toast__content{
-        font-size: 28px;
+        font-size: 28px !important;
     }
 </style>
