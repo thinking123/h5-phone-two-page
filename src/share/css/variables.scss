@@ -66,3 +66,7 @@ $relTop:0;
   margin-top:#{$top}px;
   @include getSize($x1 , $y1 , $x2 , $y2)
 }
+
+
+$radius:10px;
+$btnColor:#333333;

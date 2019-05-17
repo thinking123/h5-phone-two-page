@@ -12,7 +12,7 @@ import 'css/index.css'
 
 Vue.config.productionTip = false
 
-
+document.title = "会员注册"
 new Vue({
     store,
     render:h => h(App)

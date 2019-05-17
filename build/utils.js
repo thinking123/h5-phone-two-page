@@ -12,7 +12,7 @@ function getEntries() {
     const entries = []
     glob.sync(pattern , {
         // root:path.resolve()
-        ignore:[`${CODE_PATH}/share/**/*`]
+        ignore:[`${CODE_PATH}/share/**/*` ]
     }).forEach(m =>{
         if(m.indexOf('index.js') == -1){
             return
