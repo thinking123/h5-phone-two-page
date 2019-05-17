@@ -93,7 +93,7 @@
                 try {
                     isShowBar && this.CHANGE_LOADING_BAR(true)
                     const {list, pageNum, pages, total} = await search(this.search, curNum)
-                    this.list = list
+                    this.list = [...this.list , ...list]
                     this.pageNum = pageNum
                     this.pages = pages
                     this.total = total
@@ -111,7 +111,7 @@
                     console.log('loading')
                     if (!this.isLoading && this.pageNum < this.pages) {
                         this.isLoading = true
-                        getData(this.pageNum + 1 , false)
+                        this.getData(this.pageNum + 1 , false)
                     }
                 }
             }
@@ -233,9 +233,14 @@
                     font-size: 14px;
 
                     > div {
-                        display: flex;
+                        text-align: center;
                         align-items: center;
                         justify-content: center;
+
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        display: block;
                     }
 
                     > :nth-child(1) {
