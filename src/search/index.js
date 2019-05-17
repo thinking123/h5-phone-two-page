@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import 'weui/dist/style/weui.min.css'
 import App from './App'
 import store from 'store'
 

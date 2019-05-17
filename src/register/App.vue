@@ -1,15 +1,18 @@
 <template>
-    <div class="page">
-        <div class="form">
-            <icon-input icon="person" :val.sync="name" placeholder="请填写会员名称"/>
-            <icon-input-with-button icon="phone" :val.sync="phone" placeholder="请输入手机号" @emitcode="handleEmitCode"/>
-            <icon-input icon="code" :val.sync="code" placeholder="请输入验证码"/>
-            <button @click="handleSubmit">
-                注册会员
-            </button>
-        </div>
+    <layout>
+        <div class="page">
+            <div class="form">
+                <icon-input icon="person" :val.sync="name" placeholder="请填写会员名称"/>
+                <icon-input-with-button icon="phone" :val.sync="phone" placeholder="请输入手机号" @emitcode="handleEmitCode"/>
+                <icon-input icon="code" :val.sync="code" placeholder="请输入验证码"/>
+                <button @click="handleSubmit">
+                    注册会员
+                </button>
+            </div>
 
-    </div>
+        </div>
+    </layout>
+
 
 </template>
 
@@ -19,10 +22,12 @@
     import IconInputWithButton from "@/components/IconInputWithButton";
     import {showMsg} from "@/utils/common";
     import {register, getCode} from "./http";
-
+    import Layout from "@/components/Layout/index";
+    import {CHANGE_LOADING_BAR} from "@/store/mutations";
+    import {mapGetters , mapMutations} from 'vuex'
     export default {
         name: "App",
-        components: {IconInputWithButton, IconInput},
+        components: {Layout, IconInputWithButton, IconInput},
         data() {
             return {
                 name: "",
@@ -33,10 +38,12 @@
             }
         },
         methods: {
+            ...mapMutations([CHANGE_LOADING_BAR, 'setLoadingText']),
             async handleSubmit() {
                 console.log('handleSubmit', this.name)
                 if (this.validSubmit()) {
                     try {
+                        this.CHANGE_LOADING_BAR(true)
                         await register(
                             this.name ,
                             this.phone,
@@ -46,6 +53,8 @@
                         showMsg("注册成功")
                     }catch (e) {
                         showMsg(e)
+                    }finally {
+                        this.CHANGE_LOADING_BAR(false)
                     }
                 }
             },
@@ -76,10 +85,13 @@
                         showMsg("输入正确手机号")
                         return false
                     }
+                    this.CHANGE_LOADING_BAR(true)
                     const code = await getCode(this.phone)
                     console.log('code', code)
                 } catch (e) {
                     showMsg(e)
+                }finally {
+                    this.CHANGE_LOADING_BAR(false)
                 }
             }
         }
@@ -93,7 +105,7 @@
         width: 100%;
         height: 100%;
         background-image: url("../share/images/bg.png");
-        background-size: contain;
+        background-size: cover;
         position: relative;
 
         .form {

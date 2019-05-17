@@ -48,4 +48,9 @@
     transform: translate(-50% , -50%) !important;
     margin: 0;
 }
+
+
+    .weui-toast__content{
+        font-size: 28px;
+    }
 </style>

@@ -1,64 +1,69 @@
 <template>
-    <div class="page">
-        <div class="search-input">
-            <search-input placeholder="请输入姓名或手机号" @search="handleSubmit" :val.sync="search"/>
-            <button class="search-button" @click="handleSubmit">
-                搜索
-            </button>
-        </div>
-        <div class="table-wrap">
-            <div class="table-header">
-                <div>
-                    姓名
+    <layout>
+        <div class="page">
+            <div class="search-input">
+                <search-input placeholder="请输入姓名或手机号" @search="handleSubmit" :val.sync="search"/>
+                <button class="search-button" @click="handleSubmit">
+                    搜索
+                </button>
+            </div>
+            <div class="table-wrap">
+                <div class="table-header">
+                    <div>
+                        姓名
+                    </div>
+                    <div>
+                        手机号
+                    </div>
+                    <div>
+                        注册时间
+                    </div>
+                    <div>
+                        是否会员
+                    </div>
                 </div>
-                <div>
-                    手机号
-                </div>
-                <div>
-                    注册时间
-                </div>
-                <div>
-                    是否会员
+                <div class="table-body" v-on:scroll="handleScroll">
+                    <div class="table-row" v-for="row in list">
+                        <div>
+                            {{row.userName }}
+                        </div>
+                        <div>
+                            {{row.userPhone }}
+                        </div>
+                        <div>
+                            {{row.createTime }}
+                        </div>
+                        <div>
+                            {{row.isMember == "1" ? "是" : "否" }}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="table-body" v-on:scroll="handleScroll">
-                <div class="table-row" v-for="row in list">
-                    <div>
-                        {{row.userName }}
-                    </div>
-                    <div>
-                        {{row.userPhone }}
-                    </div>
-                    <div>
-                        {{row.createTime }}
-                    </div>
-                    <div>
-                        {{row.isMember == "1" ? "是" : "否" }}
-                    </div>
-                </div>
+            <div class="isloading" v-if="isLoading">
+                正在加载...
             </div>
-        </div>
-        <div class="isloading" v-if="isLoading">
-            正在加载...
-        </div>
 
 
-    </div>
+        </div>
+    </layout>
+
 
 </template>
 
 <script>
     // import Layout from "@/components/Layout/index";
+    import {CHANGE_LOADING_BAR} from "@/store/mutations";
     import IconInput from "@/components/IconInput";
     import IconInputWithButton from "@/components/IconInputWithButton";
     import SearchInput from "@/components/SearchInput";
     import {showMsg } from "@/utils/common";
     import {search} from "./http";
     import LoadingBar from "@/components/LoadingBar";
-
+    import Layout from "@/components/Layout/index";
+    import {mapGetters , mapMutations} from 'vuex'
     export default {
         name: "App",
-        components: {LoadingBar, SearchInput, IconInputWithButton, IconInput},
+        components: {Layout, LoadingBar, SearchInput, IconInputWithButton, IconInput},
         data() {
             return {
                 search: "",
@@ -70,7 +75,9 @@
             }
         },
         methods: {
+            ...mapMutations([CHANGE_LOADING_BAR, 'setLoadingText']),
             handleSubmit() {
+                console.log('show bar')
                 if (!this.search || this.search.trim().length == 0) {
                     showMsg("输入要查找的内容")
                     return
@@ -82,8 +89,9 @@
                 this.getData(this.pageNum)
             },
 
-            async getData(curNum) {
+            async getData(curNum , isShowBar = true) {
                 try {
+                    isShowBar && this.CHANGE_LOADING_BAR(true)
                     const {list, pageNum, pages, total} = await search(this.search, curNum)
                     this.list = list
                     this.pageNum = pageNum
@@ -94,6 +102,7 @@
                     showMsg(e)
                 }finally {
                     this.isLoading = false
+                    isShowBar && this.CHANGE_LOADING_BAR(false)
                 }
             },
             handleScroll(e) {
@@ -102,7 +111,7 @@
                     console.log('loading')
                     if (!this.isLoading && this.pageNum < this.pages) {
                         this.isLoading = true
-                        getData(this.pageNum + 1)
+                        getData(this.pageNum + 1 , false)
                     }
                 }
             }
@@ -135,7 +144,7 @@
         width: 100%;
         height: 100%;
         background-image: url("../share/images/bg.png");
-        background-size: contain;
+        background-size: cover;
         position: relative;
         overflow: hidden;
         display: flex;

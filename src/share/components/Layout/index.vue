@@ -2,7 +2,7 @@
     <div class="layout">
         <slot/>
         <loading-bar/>
-        <more-arrow/>
+        <!--<more-arrow/>-->
     </div>
 </template>
 
