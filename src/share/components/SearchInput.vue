@@ -1,6 +1,6 @@
 <template>
     <div class="icon-input">
-        <img class="icon" :src="`images/${icon}_icon.png`"/>
+        <img class="icon" :src="`images/${icon}_icon.png`" @click="handleSearch"/>
         <div class="line"/>
         <!--<img class="icon" src="../images/person_icon.png"/>-->
         <input :type="type" v-model="inputVal" :placeholder="placeholder"/>
@@ -26,6 +26,11 @@
             val:{
                 type:String
             },
+        },
+        methods:{
+            handleSearch(){
+                this.$emit('search')
+            }
         },
         computed:{
             inputVal:{

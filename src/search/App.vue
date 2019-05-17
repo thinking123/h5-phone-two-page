@@ -1,8 +1,8 @@
 <template>
     <div class="page">
-        <div  class="search-input">
-            <search-input placeholder="请输入姓名或手机号"/>
-            <button class="search-button">
+        <div class="search-input">
+            <search-input placeholder="请输入姓名或手机号" @search="handleSubmit" :val.sync="search"/>
+            <button class="search-button" @click="handleSubmit">
                 搜索
             </button>
         </div>
@@ -27,17 +27,21 @@
                         {{row.userName }}
                     </div>
                     <div>
-                        {{row.userPhone  }}
+                        {{row.userPhone }}
                     </div>
                     <div>
-                        {{row.createTime   }}
+                        {{row.createTime }}
                     </div>
                     <div>
-                        {{row.isMember == "1" ? "是" : "否"   }}
+                        {{row.isMember == "1" ? "是" : "否" }}
                     </div>
                 </div>
             </div>
         </div>
+        <div class="isloading" v-if="isLoading">
+            正在加载...
+        </div>
+
 
     </div>
 
@@ -48,41 +52,73 @@
     import IconInput from "@/components/IconInput";
     import IconInputWithButton from "@/components/IconInputWithButton";
     import SearchInput from "@/components/SearchInput";
+    import {showMsg } from "@/utils/common";
+    import {search} from "./http";
+    import LoadingBar from "@/components/LoadingBar";
+
     export default {
         name: "App",
-        components: {SearchInput, IconInputWithButton, IconInput},
-        data(){
+        components: {LoadingBar, SearchInput, IconInputWithButton, IconInput},
+        data() {
             return {
-                name:"",
-                phone:"",
-                code:"",
-                isLoading:false,
-                list:[]
+                search: "",
+                isLoading: false,
+                list: [],
+                "pageNum": 1,
+                "pages": 0,
+                "total": 0
             }
         },
-        methods:{
-            handleSubmit(){
-
+        methods: {
+            handleSubmit() {
+                if (!this.search || this.search.trim().length == 0) {
+                    showMsg("输入要查找的内容")
+                    return
+                }
+                this.list = []
+                this.pageNum = 1
+                this.pages = 0
+                this.total = 0
+                this.getData(this.pageNum)
             },
-            handleScroll(e){
+
+            async getData(curNum) {
+                try {
+                    const {list, pageNum, pages, total} = await search(this.search, curNum)
+                    this.list = list
+                    this.pageNum = pageNum
+                    this.pages = pages
+                    this.total = total
+
+                } catch (e) {
+                    showMsg(e)
+                }finally {
+                    this.isLoading = false
+                }
+            },
+            handleScroll(e) {
                 const element = e.target;
-                if(element.scrollTop == (element.scrollHeight - element.offsetHeight)){
-                    console.log('loading' )
+                if (element.scrollTop == (element.scrollHeight - element.offsetHeight)) {
+                    console.log('loading')
+                    if (!this.isLoading && this.pageNum < this.pages) {
+                        this.isLoading = true
+                        getData(this.pageNum + 1)
+                    }
                 }
             }
         },
         mounted() {
-            for(let i = 0 ; i < 3 ; i++){
-                const v = {
-                    userName:"pos : " + i,
-                    userPhone:"userPhone",
-                    createTime:"createTime",
-                    isMember:i %3 == 0 ? "1" : "0",
-
-                }
-
-                this.list.push(v)
-            }
+            // for (let i = 0; i < 3; i++) {
+            //     const v = {
+            //         userName: "pos : " + i,
+            //         userPhone: "userPhone",
+            //         createTime: "createTime",
+            //         isMember: i % 3 == 0 ? "1" : "0",
+            //
+            //     }
+            //
+            //     this.list.push(v)
+            // }
 
 
             // window.addEventListener('scroll' , e =>{
@@ -95,7 +131,7 @@
 <style scoped lang="scss">
     @import "css/variables";
 
-    .page{
+    .page {
         width: 100%;
         height: 100%;
         background-image: url("../share/images/bg.png");
@@ -104,13 +140,21 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        .search-input{
-            margin-top:17px;
+
+        .isloading{
+            position: absolute;
+            bottom: 2px;
+            left:50%;
+            transform: translateX(-50%);
+        }
+        .search-input {
+            margin-top: 17px;
             margin-left: 15px;
 
             display: flex;
             flex-direction: row;
-            .search-button{
+
+            .search-button {
                 margin-left: 15px;
                 height: 28px;
                 width: 60px;
@@ -128,64 +172,77 @@
                 cursor: pointer;
             }
         }
-        .table-wrap{
+
+        .table-wrap {
             flex: 1;
             width: 100%;
             margin-top: 18px;
             margin-bottom: 2px;
             display: flex;
             flex-direction: column;
-            .table-header{
+
+            .table-header {
                 display: flex;
                 flex-direction: row;
                 background-color: white;
                 height: 30px;
 
                 font-size: 14px;
-                >div{
+
+                > div {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
-                >:nth-child(1){
-                    flex:1;
+
+                > :nth-child(1) {
+                    flex: 1;
                 }
-                >:nth-child(2){
-                    flex:1;
+
+                > :nth-child(2) {
+                    flex: 1;
                 }
-                >:nth-child(3){
-                    flex:1.5;
+
+                > :nth-child(3) {
+                    flex: 1.5;
                 }
-                >:nth-child(4){
-                    flex:1;
+
+                > :nth-child(4) {
+                    flex: 1;
                 }
             }
 
-            .table-body{
+            .table-body {
                 flex: 1;
                 overflow: auto;
-                .table-row{
+
+                .table-row {
                     display: flex;
                     flex-direction: row;
                     height: 30px;
 
                     font-size: 14px;
-                    >div{
+
+                    > div {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                     }
-                    >:nth-child(1){
-                        flex:1;
+
+                    > :nth-child(1) {
+                        flex: 1;
                     }
-                    >:nth-child(2){
-                        flex:1;
+
+                    > :nth-child(2) {
+                        flex: 1;
                     }
-                    >:nth-child(3){
-                        flex:1.5;
+
+                    > :nth-child(3) {
+                        flex: 1.5;
                     }
-                    >:nth-child(4){
-                        flex:1;
+
+                    > :nth-child(4) {
+                        flex: 1;
                     }
                 }
             }
